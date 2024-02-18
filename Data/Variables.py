@@ -1,0 +1,1 @@
+credits_endpoint = "credits"

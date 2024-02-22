@@ -5,8 +5,8 @@ import time
 
 
 def coin_info(i):
-    while(i<5):
-        time.sleep(15)
+    while(i<1):
+        time.sleep(5)
         url = "https://api.livecoinwatch.com/coins/single"
 
         payload = json.dumps({
@@ -22,7 +22,5 @@ def coin_info(i):
 
         response = requests.request("POST", url, headers=headers, data=payload)
         res_body = json.loads(response.text)
-        print(res_body)
         i = i+1
-
-coin_info(i=0)
+        return res_body

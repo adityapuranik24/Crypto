@@ -6,7 +6,6 @@ import time
 
 def coin_info(i):
     while(i<1):
-        time.sleep(5)
         url = "https://api.livecoinwatch.com/coins/single"
 
         payload = json.dumps({

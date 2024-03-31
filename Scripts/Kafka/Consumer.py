@@ -1,12 +1,21 @@
 import faust
 import pandas as pd
-app=faust.App('demo-streaming',broker='kafka://52.14.28.124:9092')
+import boto3
+import sys
+sys.path.append('D:/Projects/Crypto/Data')
+import Variables as va
+import datetime
 
+
+
+
+app=faust.App('demo-streaming',broker='kafka://52.14.28.124:9092')
 
 input_topic = app.topic('crypto', value_serializer='json')
 
 @app.agent(input_topic)
 async def processor(stream):
+    
     name = []
     age = []
     exchanges = []
@@ -50,4 +59,13 @@ async def processor(stream):
                     'Cap' : cap,
                     'Liquidity' : liquidity
                     })
+        current_time = datetime.datetime.now()
+        file_name = f"market_{current_time}.csv"
+        with open('D:/Projects/Crypto/Data/FileName.py', 'w') as file:
+            file.write(f"file_name = '{file_name}'\n")
         combined_data.to_csv("D:/Projects/Crypto/Cleaned Data/sample_data.csv", index = False)
+        row_csv = combined_data.to_csv()
+        s3_client = boto3.client('s3', aws_access_key_id=va.aws_access_key_id, aws_secret_access_key=va.aws_secret_access_key)
+        s3_client.put_object(Bucket=va.bucket_name, Key=file_name, Body=row_csv)
+        
+        

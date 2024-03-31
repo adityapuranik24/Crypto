@@ -68,6 +68,9 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+# Streamlit:
+.Streamlit
+
 # Sphinx documentation
 docs/_build/
 

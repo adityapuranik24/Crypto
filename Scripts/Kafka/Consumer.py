@@ -3,6 +3,8 @@ import pandas as pd
 import boto3
 import sys
 sys.path.append('D:/Projects/Crypto/Data')
+sys.path.append('D:/Projects/Crypto/Scripts/Excel')
+import Updating_Excel as ue
 import Variables as va
 import datetime
 
@@ -59,13 +61,17 @@ async def processor(stream):
                     'Cap' : cap,
                     'Liquidity' : liquidity
                     })
+        
+        combined_data = combined_data.tail(1)
         current_time = datetime.datetime.now()
         file_name = f"market_{current_time}.csv"
         with open('D:/Projects/Crypto/Data/FileName.py', 'w') as file:
             file.write(f"file_name = '{file_name}'\n")
-        combined_data.to_csv("D:/Projects/Crypto/Cleaned Data/sample_data.csv", index = False)
-        row_csv = combined_data.to_csv()
+        row_csv = combined_data.to_csv(index = False)
         s3_client = boto3.client('s3', aws_access_key_id=va.aws_access_key_id, aws_secret_access_key=va.aws_secret_access_key)
         s3_client.put_object(Bucket=va.bucket_name, Key=file_name, Body=row_csv)
-        
+        ue.update_excel(combined_data)
+        print(combined_data)
+
+
         

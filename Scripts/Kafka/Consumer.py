@@ -1,12 +1,14 @@
 import faust
 import pandas as pd
-import boto3
 import sys
+import datetime
 sys.path.append('D:/Projects/Crypto/Data')
 sys.path.append('D:/Projects/Crypto/Scripts/Excel')
+sys.path.append('D:/Projects/Crypto/Scripts/S3')
+import S3_Client_Connection as cc
 import Updating_Excel as ue
 import Variables as va
-import datetime
+
 
 
 
@@ -68,7 +70,7 @@ async def processor(stream):
         with open('D:/Projects/Crypto/Data/FileName.py', 'w') as file:
             file.write(f"file_name = '{file_name}'\n")
         row_csv = combined_data.to_csv(index = False)
-        s3_client = boto3.client('s3', aws_access_key_id=va.aws_access_key_id, aws_secret_access_key=va.aws_secret_access_key)
+        s3_client = cc.get_connection()
         s3_client.put_object(Bucket=va.bucket_name, Key=file_name, Body=row_csv)
         ue.update_excel(combined_data)
         print(combined_data)

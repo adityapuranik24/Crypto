@@ -32,8 +32,14 @@ async def processor(stream):
     volume = []
     cap = []
     liquidity = []
+    delta_hour = []
+    delta_day = []
+    delta_week = []
+    delta_month = []
+    delta_year = []
+    
     async for message in stream:
-        rem_list = ['symbol', 'rank', 'color', 'png32', 'png64','webp32', 'webp64', 'pairs', 'categories', 'links', 'delta']
+        rem_list = ['symbol', 'rank', 'color', 'png32', 'png64','webp32', 'webp64', 'pairs', 'categories', 'links']
         for key in rem_list:
             del message[key]
         name.append(message['name'])
@@ -48,6 +54,12 @@ async def processor(stream):
         volume.append(message['volume'])
         cap.append(message['cap'])
         liquidity.append(message['liquidity'])
+        delta_hour.append(message['delta']['hour'])
+        delta_day.append(message['delta']['day'])
+        delta_week.append(message['delta']['week'])
+        delta_month.append(message['delta']['month'])
+        delta_year.append(message['delta']['year'])
+
 
         combined_data = pd.DataFrame(
                     {'Name': name,
@@ -61,7 +73,12 @@ async def processor(stream):
                     'Rate' : rate,
                     'Volume' : volume,
                     'Cap' : cap,
-                    'Liquidity' : liquidity
+                    'Liquidity' : liquidity,
+                    'Delta Hour Change' : delta_hour,
+                    'Delta Day Change' : delta_day,
+                    'Delta Week Change' : delta_week,
+                    'Delta Month Change' : delta_month,
+                    'Delta Year Change' : delta_year
                     })
         
         combined_data = combined_data.tail(1)

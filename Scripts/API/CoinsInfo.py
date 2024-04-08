@@ -21,5 +21,7 @@ def coin_info(i):
 
         response = requests.request("POST", url, headers=headers, data=payload)
         res_body = json.loads(response.text)
+        print(res_body)
         i = i+1
         return res_body
+    

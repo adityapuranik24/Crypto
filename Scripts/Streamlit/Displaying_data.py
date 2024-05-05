@@ -1,11 +1,19 @@
 import streamlit as st
 import sys
 import pandas as pd
+import datetime
 sys.path.append('D:/Projects/Crypto/Scripts/S3')
 sys.path.append('D:/Projects/Crypto/Scripts/Calculations')
-import datetime
+sys.path.append('D:/Projects/Crypto/Scripts/Excel')
+import Getting_Data_Excel as ex 
 import Delta_Time as dt
 import Getting_Data_S3 as s3
+
+sys.path.append('D:/Projects/Crypto/Data')
+import Variables as va
+
+df = pd.read_csv(va.file_path)
+
 
 current_time = datetime.datetime.now()
 st.set_page_config(layout="wide")
@@ -85,8 +93,8 @@ def main():
 
     st.markdown("""---""")
     st.write('Bitcoin Price Chart')
-    st.line_chart(pd.DataFrame({'time': [current_time], 'price': [bitcoin_price]}))
-    # st.experimental_rerun()
+    st.line_chart(df, x= 'Volume', y = 'Rate', color="#FF0000")
+    st.experimental_rerun()
 
 if __name__ == "__main__":
     main()

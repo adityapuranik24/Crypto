@@ -16,5 +16,6 @@ def run_producer():
     producer.send('crypto', value=data)
 
 
-
-run_producer()
+while True:
+    sleep(20)
+    run_producer()

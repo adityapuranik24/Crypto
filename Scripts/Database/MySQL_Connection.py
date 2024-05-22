@@ -9,7 +9,14 @@ def db_connect():
     return cursor, db
 
 
-# a = db_connect()
+# a,b = db_connect()
 # a.execute('''USE CRYPTO''')
+# print(a.execute('''SELECT COUNT(*) FROM BITCOIN'''))
 # print(a.execute('''SELECT * FROM BITCOIN'''))
+
+# rows = a.fetchall()
+
+# # Print each row
+# for row in rows:
+#     print(row)
 

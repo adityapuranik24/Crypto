@@ -83,8 +83,9 @@ async def processor(stream):
                     'Delta_Year_Change' : delta_year
                     })
         
+        # Getting latest data in the form of pandas row
         combined_data = combined_data.tail(1)
-
+        # Converting the columns in diierent datatypes
         combined_data['Name'] = combined_data['Name'].astype('string')
         combined_data['Age'] = combined_data['Age'].astype('int')
         combined_data['Exchanges'] = combined_data['Exchanges'].astype('int')
@@ -102,19 +103,21 @@ async def processor(stream):
         combined_data['Delta_Week_Change'] = combined_data['Delta_Week_Change'].astype('float')
         combined_data['Delta_Month_Change'] = combined_data['Delta_Month_Change'].astype('float')
         combined_data['Delta_Year_Change'] = combined_data['Delta_Year_Change'].astype('float')   
-
-
+        # Creating a file for each entry with timestamp to save in S3 storge
         current_time = datetime.datetime.now()
         file_name = f"market_{current_time}.csv"
         with open('D:/Projects/Crypto/Data/FileName.py', 'w') as file:
             file.write(f"file_name = '{file_name}'\n")
         row_csv = combined_data.to_csv(index = False)
+        # Setting S3 connection
         s3_client = cc.get_connection()
         s3_client.put_object(Bucket=va.bucket_name, Key=file_name, Body=row_csv)
         ue.update_excel(combined_data)
+        # Setting database connection
         cursor, db = db_conn.db_connect()
         # Select the database
         cursor.execute("USE CRYPTO")
+        # Loading the database with new values
         for row in combined_data.itertuples():
             cursor.execute('''
                     INSERT INTO BITCOIN (
@@ -144,5 +147,6 @@ async def processor(stream):
             db.commit()
         print(combined_data)
 
-
+if __name__ == '__main__':
+   app.main()
         

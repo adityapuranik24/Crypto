@@ -14,7 +14,7 @@ def run_consumer():
     print(f"Changed directory to {os.getcwd()}")
 
     # Define the command you want to run
-    command = ["faust", "-A", "Consumer", "worker", "-l", "info"]
+    command = ["python Consumer.py worker"]
 
     # Run the command in the new directory
     process = subprocess.run(command, text=True, capture_output=True)

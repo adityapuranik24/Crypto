@@ -2,6 +2,7 @@ import faust
 import pandas as pd
 import sys
 import datetime
+from datetime import datetime
 sys.path.append('D:/Projects/Crypto/Data')
 sys.path.append('D:/Projects/Crypto/Scripts/Excel')
 sys.path.append('D:/Projects/Crypto/Scripts/S3')
@@ -61,10 +62,13 @@ async def processor(stream):
         delta_week.append(message['delta']['week'])
         delta_month.append(message['delta']['month'])
         delta_year.append(message['delta']['year'])
-
+        # Getting current time 
+        current_time = datetime.now().time()
+        current_time = current_time.strftime("%H:%M:%S")
 
         combined_data = pd.DataFrame(
-                    {'Name': name,
+                    { 'Time' : current_time,
+                    'Name': name,
                     'Age': age,
                     'Exchanges': exchanges,
                     'Markets': markets,
@@ -85,7 +89,8 @@ async def processor(stream):
         
         # Getting latest data in the form of pandas row
         combined_data = combined_data.tail(1)
-        # Converting the columns in diierent datatypes
+        # Converting the columns in different datatypes
+        combined_data['Time'] = combined_data['Time'].astype('string')
         combined_data['Name'] = combined_data['Name'].astype('string')
         combined_data['Age'] = combined_data['Age'].astype('int')
         combined_data['Exchanges'] = combined_data['Exchanges'].astype('int')
@@ -104,7 +109,7 @@ async def processor(stream):
         combined_data['Delta_Month_Change'] = combined_data['Delta_Month_Change'].astype('float')
         combined_data['Delta_Year_Change'] = combined_data['Delta_Year_Change'].astype('float')   
         # Creating a file for each entry with timestamp to save in S3 storge
-        current_time = datetime.datetime.now()
+        # current_time = datetime.datetime.now()
         file_name = f"market_{current_time}.csv"
         with open('D:/Projects/Crypto/Data/FileName.py', 'w') as file:
             file.write(f"file_name = '{file_name}'\n")
@@ -121,12 +126,13 @@ async def processor(stream):
         for row in combined_data.itertuples():
             cursor.execute('''
                     INSERT INTO BITCOIN (
-                  Name, Age, Exchanges, Markets, All_Time_High, Circulating_Supply, Total_Supply,
+                  Time, Name, Age, Exchanges, Markets, All_Time_High, Circulating_Supply, Total_Supply,
                   Max_Supply, Rate, Volume, Cap, Liquidity, Delta_Hour_Change, Delta_Day_Change,
                   Delta_Week_Change, Delta_Month_Change, Delta_Year_Change) 
-                  VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                  VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                     ''',
-                    (row.Name, 
+                    ( row.Time,
+                    row.Name, 
                     row.Age,
                     row.Exchanges,
                     row.Markets, 

@@ -1,12 +1,14 @@
 import faust
 import pandas as pd
 import sys
-import datetime
-from datetime import datetime
+# import datetime
+# from datetime import datetime
 sys.path.append('D:/Projects/Crypto/Data')
 sys.path.append('D:/Projects/Crypto/Scripts/Excel')
 sys.path.append('D:/Projects/Crypto/Scripts/S3')
 sys.path.append('D:/Projects/Crypto/Scripts/Database')
+sys.path.append('D:/Projects/Crypto/Scripts/Calculations')
+import Current_Date_Time as dt
 import MySQL_Connection as db_conn
 import S3_Client_Connection as cc
 import Updating_Excel as ue
@@ -39,6 +41,7 @@ async def processor(stream):
     delta_day = []
     delta_week = []
     delta_month = []
+    delta_quarter = []
     delta_year = []
     
     async for message in stream:
@@ -61,13 +64,30 @@ async def processor(stream):
         delta_day.append(message['delta']['day'])
         delta_week.append(message['delta']['week'])
         delta_month.append(message['delta']['month'])
+        delta_quarter.append(message['delta']['quarter'])
         delta_year.append(message['delta']['year'])
-        # Getting current time 
-        current_time = datetime.now().time()
-        current_time = current_time.strftime("%H:%M:%S")
+
+        # # Getting current time 
+        # current_time = datetime.now().time()
+        # current_time = current_time.strftime("%H:%M:%S")
+
+        # # getting current date
+        # current_date = datetime.now()
+        # current_day = current_date.day
+        # current_month_name = current_date.strftime("%B")
+        # current_month = current_date.month
+        # current_year = current_date.year
+        # current_date_updated = current_date.strftime("%d %B %Y").upper()
+        # current_time, current_day, current_month_name, current_month, current_year, current_date_updated        
+
+        # Getting current Date & Time
+        current_time, current_day, current_month_name, current_month, current_year, current_date_updated = dt.current_date_time()           
+
+
 
         combined_data = pd.DataFrame(
-                    { 'Time' : current_time,
+                    { 'Time' : current_time, 
+                    'Date': current_date_updated,
                     'Name': name,
                     'Age': age,
                     'Exchanges': exchanges,
@@ -84,13 +104,19 @@ async def processor(stream):
                     'Delta_Day_Change' : delta_day,
                     'Delta_Week_Change' : delta_week,
                     'Delta_Month_Change' : delta_month,
-                    'Delta_Year_Change' : delta_year
+                    'Delta_Quarter_Change' : delta_quarter,
+                    'Delta_Year_Change' : delta_year,
+                    'Day' : current_day,
+                    'Month_Number': current_month,
+                    'Month_Name' : current_month_name,
+                    'Year' : current_year
                     })
         
         # Getting latest data in the form of pandas row
         combined_data = combined_data.tail(1)
-        # Converting the columns in different datatypes
+        #Converting the columns in different datatypes 
         combined_data['Time'] = combined_data['Time'].astype('string')
+        combined_data['Date'] = pd.to_datetime(combined_data['Date'], format='%d %B %Y')
         combined_data['Name'] = combined_data['Name'].astype('string')
         combined_data['Age'] = combined_data['Age'].astype('int')
         combined_data['Exchanges'] = combined_data['Exchanges'].astype('int')
@@ -107,7 +133,16 @@ async def processor(stream):
         combined_data['Delta_Day_Change'] = combined_data['Delta_Day_Change'].astype('float')
         combined_data['Delta_Week_Change'] = combined_data['Delta_Week_Change'].astype('float')
         combined_data['Delta_Month_Change'] = combined_data['Delta_Month_Change'].astype('float')
-        combined_data['Delta_Year_Change'] = combined_data['Delta_Year_Change'].astype('float')   
+        combined_data['Delta_Quarter_Change'] = combined_data['Delta_Quarter_Change'].astype('float') 
+        combined_data['Delta_Year_Change'] = combined_data['Delta_Year_Change'].astype('float')  
+        combined_data['Day'] = combined_data['Day'].astype('int') 
+        combined_data['Month_Number'] = combined_data['Month_Number'].astype('int')  
+        combined_data['Month_Name'] = combined_data['Month_Name'].astype('string') 
+        combined_data['Year'] = combined_data['Year'].astype('int')  
+
+
+
+
         # Creating a file for each entry with timestamp to save in S3 storge
         # current_time = datetime.datetime.now()
         file_name = f"market_{current_time}.csv"
@@ -126,12 +161,14 @@ async def processor(stream):
         for row in combined_data.itertuples():
             cursor.execute('''
                     INSERT INTO BITCOIN (
-                  Time, Name, Age, Exchanges, Markets, All_Time_High, Circulating_Supply, Total_Supply,
+                  Time, Date, Name, Age, Exchanges, Markets, All_Time_High, Circulating_Supply, Total_Supply,
                   Max_Supply, Rate, Volume, Cap, Liquidity, Delta_Hour_Change, Delta_Day_Change,
-                  Delta_Week_Change, Delta_Month_Change, Delta_Year_Change) 
-                  VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                  Delta_Week_Change, Delta_Month_Change, Delta_Quarter_Change, Delta_Year_Change, Day, Month_Number, 
+                  Month_Name, Year ) 
+                  VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                     ''',
-                    ( row.Time,
+                    (row.Time, 
+                    row.Date,
                     row.Name, 
                     row.Age,
                     row.Exchanges,
@@ -148,7 +185,12 @@ async def processor(stream):
                     row.Delta_Day_Change,
                     row.Delta_Week_Change,
                     row.Delta_Month_Change, 
-                    row.Delta_Year_Change)
+                    row.Delta_Quarter_Change,
+                    row.Delta_Year_Change,
+                    row.Day,
+                    row.Month_Number,
+                    row.Month_Name,
+                    row.Year)
                 )
             db.commit()
         print(combined_data)

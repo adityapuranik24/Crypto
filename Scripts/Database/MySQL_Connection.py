@@ -13,11 +13,12 @@ a,b = db_connect()
 a.execute('''USE CRYPTO''')
 print(a.execute('''SELECT * FROM BITCOIN;'''))
 # print(a.execute(''' CREATE TABLE BITCOIN (
-#     Time VARCHAR(20),
+#     Time VARCHAR(30),
+#     Date DATE,
 #     Name VARCHAR(20),
 #     Age INT,
-#     Exchanges VARCHAR(20),
-#     Markets VARCHAR(20),
+#     Exchanges INT,
+#     Markets INT,
 #     All_Time_High FLOAT,
 #     Circulating_Supply BIGINT,
 #     Total_Supply BIGINT,
@@ -25,13 +26,22 @@ print(a.execute('''SELECT * FROM BITCOIN;'''))
 #     Rate FLOAT,
 #     Volume BIGINT,
 #     Cap BIGINT,
-#     Liquidity FLOAT,
+#     Liquidity BIGINT,
 #     Delta_Hour_Change FLOAT,
 #     Delta_Day_Change FLOAT,
 #     Delta_Week_Change FLOAT,
 #     Delta_Month_Change FLOAT,
-#     Delta_Year_Change FLOAT
+#     Delta_Quarter_Change FLOAT,
+#     Delta_Year_Change FLOAT,
+#     Day INT,
+#     Month_Number INT,
+#     Month_Name VARCHAR(20),
+#     Year INT
 # );'''))
+
+
+
+
 
 rows = a.fetchall()
 

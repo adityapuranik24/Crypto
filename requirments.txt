@@ -1,2 +1,0 @@
-Libraries in use
-pip install kafka-python

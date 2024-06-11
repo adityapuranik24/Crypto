@@ -9,9 +9,9 @@ def db_connect():
     return cursor, db
 
 
-a,b = db_connect()
-a.execute('''USE CRYPTO''')
-print(a.execute('''SELECT * FROM BITCOIN;'''))
+# a,b = db_connect()
+# a.execute('''USE CRYPTO''')
+# print(a.execute('''SELECT * FROM BITCOIN;'''))
 # print(a.execute(''' CREATE TABLE BITCOIN (
 #     Time VARCHAR(30),
 #     Date DATE,
@@ -43,9 +43,9 @@ print(a.execute('''SELECT * FROM BITCOIN;'''))
 
 
 
-rows = a.fetchall()
+# rows = a.fetchall()
 
-# Print each row
-for row in rows:
-    print(row)
+# # Print each row
+# for row in rows:
+#     print(row)
 

@@ -81,7 +81,7 @@ async def processor(stream):
         # current_time, current_day, current_month_name, current_month, current_year, current_date_updated        
 
         # Getting current Date & Time
-        current_time, current_day, current_month_name, current_month, current_year, current_date_updated = dt.current_date_time()           
+        timestamp, current_time, current_day, current_month_name, current_month, current_year, current_date_updated = dt.current_date_time()           
 
 
 
@@ -145,7 +145,7 @@ async def processor(stream):
 
         # Creating a file for each entry with timestamp to save in S3 storge
         # current_time = datetime.datetime.now()
-        file_name = f"market_{current_time}.csv"
+        file_name = f"market_{timestamp}.csv"
         with open('D:/Projects/Crypto/Data/FileName.py', 'w') as file:
             file.write(f"file_name = '{file_name}'\n")
         row_csv = combined_data.to_csv(index = False)

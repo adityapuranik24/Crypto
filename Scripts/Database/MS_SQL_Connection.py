@@ -1,17 +1,21 @@
-import pymysql
+import pyodbc
 
 
 
-def db_connect():
-    db = pymysql.connect(host="db-crypto.c9wekkiy8fip.us-east-2.rds.amazonaws.com", 
-                        user = "admin", password="Addi8881212")
-    cursor = db.cursor()
-    return cursor, db
+# def mssql(row):
+def db_con():
+    # Establishing connection
+    curser = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
+                    "Server=ASUS\SQLEXPRESS;"
+                    "Database=CRYPTO;"
+                    "Trusted_Connection=yes;",
+                    autocommit= True)
+    return curser
 
 
-# a.execute('''USE CRYPTO''')
-# print(a.execute('''SELECT * FROM BITCOIN;'''))
-# print(a.execute(''' CREATE TABLE BITCOIN (
+
+
+# conn.execute(''' CREATE TABLE BITCOIN (
 #     Time VARCHAR(30),
 #     Date DATE,
 #     Name VARCHAR(20),
@@ -36,15 +40,17 @@ def db_connect():
 #     Month_Number INT,
 #     Month_Name VARCHAR(20),
 #     Year INT
-# );'''))
+# );''')
+
+# country_codes = pd.read_csv("D:\Projects\Crypto\Cleaned Data\sample_data.csv")
+# country_codes
 
 
 
 
 
-# rows = a.fetchall()
 
-# # Print each row
-# for row in rows:
-#     print(row)
+
+
+
 

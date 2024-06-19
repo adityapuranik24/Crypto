@@ -13,9 +13,9 @@ def load_mysql(row):
                         INSERT INTO BITCOIN (
                     Time, Date, Name, Age, Exchanges, Markets, All_Time_High, Circulating_Supply, Total_Supply,
                     Max_Supply, Rate, Volume, Cap, Liquidity, Delta_Hour_Change, Delta_Day_Change,
-                    Delta_Week_Change, Delta_Month_Change, Delta_Quarter_Change, Delta_Year_Change, Day, Month_Number, 
+                    Delta_Week_Change, Delta_Month_Change, Delta_Quarter_Change, Delta_Year_Change, Hour, Day, Month_Number, 
                     Month_Name, Year ) 
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                         ''',
                         (row.Time, 
                         row.Date,
@@ -37,6 +37,7 @@ def load_mysql(row):
                         row.Delta_Month_Change, 
                         row.Delta_Quarter_Change,
                         row.Delta_Year_Change,
+                        row.Hour,
                         row.Day,
                         row.Month_Number,
                         row.Month_Name,

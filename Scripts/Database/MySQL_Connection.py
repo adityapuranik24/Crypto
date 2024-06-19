@@ -1,5 +1,5 @@
 import pymysql
-
+import pandas as pd
 
 
 def db_connect():
@@ -9,8 +9,9 @@ def db_connect():
     return cursor, db
 
 
+
 # a.execute('''USE CRYPTO''')
-# print(a.execute('''SELECT * FROM BITCOIN;'''))
+# # print(a.execute('''SELECT * FROM BITCOIN;'''))
 # print(a.execute(''' CREATE TABLE BITCOIN (
 #     Time VARCHAR(30),
 #     Date DATE,
@@ -19,19 +20,20 @@ def db_connect():
 #     Exchanges INT,
 #     Markets INT,
 #     All_Time_High FLOAT,
-#     Circulating_Supply BIGINT,
-#     Total_Supply BIGINT,
-#     Max_Supply BIGINT,
+#     Circulating_Supply FLOAT, 
+#     Total_Supply FLOAT, 
+#     Max_Supply FLOAT, 
 #     Rate FLOAT,
-#     Volume BIGINT,
-#     Cap BIGINT,
-#     Liquidity BIGINT,
+#     Volume FLOAT, 
+#     Cap FLOAT, 
+#     Liquidity FLOAT, 
 #     Delta_Hour_Change FLOAT,
 #     Delta_Day_Change FLOAT,
 #     Delta_Week_Change FLOAT,
 #     Delta_Month_Change FLOAT,
 #     Delta_Quarter_Change FLOAT,
 #     Delta_Year_Change FLOAT,
+#     Hour INT,
 #     Day INT,
 #     Month_Number INT,
 #     Month_Name VARCHAR(20),

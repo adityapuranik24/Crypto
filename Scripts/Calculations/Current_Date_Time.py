@@ -19,8 +19,11 @@ def current_date_time():
     current_month_name = current_date.strftime("%B")
     current_month = current_date.month
     current_year = current_date.year
-    current_date_updated = current_date.strftime("%d %B %Y").upper()
-    return timestamp, current_time, current_day, current_month_name, current_month, current_year, current_date_updated
+    current_date_updated = current_date.strftime("%Y-%m-%d").upper()
+
+    # Getting current hour
+    current_hour = current_date.hour
+    return timestamp, current_time, current_day, current_month_name, current_month, current_year, current_date_updated, current_hour
 
 
 

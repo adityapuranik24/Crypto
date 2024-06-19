@@ -64,7 +64,7 @@ async def processor(stream):
         delta_year.append(message['delta']['year'])      
 
         # Getting current Date & Time
-        timestamp, current_time, current_day, current_month_name, current_month, current_year, current_date_updated = dt.current_date_time()           
+        timestamp, current_time, current_day, current_month_name, current_month, current_year, current_date_updated, current_hour = dt.current_date_time()           
 
         combined_data = pd.DataFrame(
                     { 'Time' : current_time, 
@@ -87,6 +87,7 @@ async def processor(stream):
                     'Delta_Month_Change' : delta_month,
                     'Delta_Quarter_Change' : delta_quarter,
                     'Delta_Year_Change' : delta_year,
+                    'Hour' : current_hour,
                     'Day' : current_day,
                     'Month_Number': current_month,
                     'Month_Name' : current_month_name,
@@ -98,7 +99,7 @@ async def processor(stream):
 
         #Converting the columns in different datatypes 
         combined_data['Time'] = combined_data['Time'].astype('string')
-        combined_data['Date'] = pd.to_datetime(combined_data['Date'], format='%d %B %Y')
+        combined_data['Date'] = pd.to_datetime(combined_data['Date'], format='%Y-%m-%d')
         combined_data['Name'] = combined_data['Name'].astype('string')
         combined_data['Age'] = combined_data['Age'].astype('int')
         combined_data['Exchanges'] = combined_data['Exchanges'].astype('int')
@@ -117,6 +118,7 @@ async def processor(stream):
         combined_data['Delta_Month_Change'] = combined_data['Delta_Month_Change'].astype('float')
         combined_data['Delta_Quarter_Change'] = combined_data['Delta_Quarter_Change'].astype('float') 
         combined_data['Delta_Year_Change'] = combined_data['Delta_Year_Change'].astype('float')  
+        combined_data['Hour'] = combined_data['Hour'].astype('int') 
         combined_data['Day'] = combined_data['Day'].astype('int') 
         combined_data['Month_Number'] = combined_data['Month_Number'].astype('int')  
         combined_data['Month_Name'] = combined_data['Month_Name'].astype('string') 

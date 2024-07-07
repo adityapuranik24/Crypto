@@ -8,3 +8,4 @@ bucket_name = 'crypto-dashboard-data'
 
 file_path = "D:/Projects/Crypto/Cleaned Data/sample_data.csv"
 variable_file_name = "D:/Projects/Crypto/Data/FileName.py"
+Bhargav_Key = 'b87e54da-43ab-4e05-97c4-5542199b6f23'

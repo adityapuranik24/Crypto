@@ -2,11 +2,11 @@ import faust
 import pandas as pd
 import sys
 sys.path.extend([
-    'D:/Projects/Crypto-Develop/Crypto-Develop/Data',
-    'D:/Projects/Crypto-Develop/Crypto-Develop/Scripts/Excel',
-    'D:/Projects/Crypto-Develop/Crypto-Develop/Scripts/S3',
-    'D:/Projects/Crypto-Develop/Crypto-Develop/Scripts/Database',
-    'D:/Projects/Crypto-Develop/Crypto-Develop/Scripts/Calculations' ])
+    'D:/Projects/Crypto/Data',
+    'D:/Projects/Crypto/Scripts/Excel',
+    'D:/Projects/Crypto/Scripts/S3',
+    'D:/Projects/Crypto/Scripts/Database',
+    'D:/Projects/Crypto/Scripts/Calculations' ])
 import Current_Date_Time as dt
 import MySQL_Connection as db_conn
 import Loading_MySQL as lm

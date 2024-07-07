@@ -15,21 +15,23 @@ def db_con():
 # a = db_con()
 
 
-# a.execute(''' CREATE TABLE BITCOIN (
+# a.execute(''' CREATE TABLE XRP (
 #     Time VARCHAR(30),
 #     Date DATE,
-#     Name VARCHAR(20),
+#     Name VARCHAR(30),
+#     Rank INT,
 #     Age INT,
 #     Exchanges INT,
 #     Markets INT,
+#     Pairs INT,
 #     All_Time_High FLOAT,
-#     Circulating_Supply BIGINT,
-#     Total_Supply BIGINT,
-#     Max_Supply BIGINT,
+#     Circulating_Supply FLOAT,
+#     Total_Supply FLOAT,
+#     Max_Supply FLOAT,
+#     Code VARCHAR(10),
 #     Rate FLOAT,
-#     Volume BIGINT,
-#     Cap BIGINT,
-#     Liquidity BIGINT,
+#     Volume FLOAT,
+#     Cap FLOAT,
 #     Delta_Hour_Change FLOAT,
 #     Delta_Day_Change FLOAT,
 #     Delta_Week_Change FLOAT,
@@ -39,7 +41,7 @@ def db_con():
 #     Hour INT,
 #     Day INT,
 #     Month_Number INT,
-#     Month_Name VARCHAR(20),
+#     Month_Name VARCHAR(50),
 #     Year INT
 # );''')
 

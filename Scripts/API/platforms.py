@@ -22,6 +22,9 @@ def coins_list():
   res_body = json.loads(response.text)
   return res_body
 
+
+# a = coins_list()
+# print(a)
 # value = []
 # length = len(res_body)
 # for i in range (0,length):

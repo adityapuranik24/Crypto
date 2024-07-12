@@ -1,7 +1,7 @@
 wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
 tar -xvf kafka_2.12-3.3.1.tgz
 
-ssh -i "Crypto-Analysis-Key.pem" ec2-user@ec2-52-14-28-124.us-east-2.compute.amazonaws.com
+ssh -i "Crypto-Analysis-Key.pem" ec2-user@ec2-18-217-211-255.us-east-2.compute.amazonaws.com
 -----------------------
 java -version
 sudo yum install java-1.8.0-openjdk

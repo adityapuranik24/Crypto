@@ -17,7 +17,7 @@ import Variables as va
 
 
 
-app=faust.App('demo-streaming',broker='kafka://52.14.28.124:9092')
+app=faust.App('demo-streaming',broker='kafka://18.217.211.255:9092')
 input_topic = app.topic('crypto', value_serializer='json')
 @app.agent(input_topic)
 async def processor(stream):    

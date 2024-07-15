@@ -1,1 +1,1 @@
-file_name = 'DOGECOIN_1720762357.699359.csv'
+exchange_name = 'COINBASE_1721072124.759187.csv'

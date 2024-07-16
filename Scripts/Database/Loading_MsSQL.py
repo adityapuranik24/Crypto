@@ -46,3 +46,31 @@ def load_mssql(row, name):
                     
                     )
     curser.commit()
+
+
+def load_exchanges_mssql(row, exchange_name):
+    curser = db_conn.db_con()
+
+    # Inserting Data
+    curser.execute(f'''
+                    INSERT INTO [{exchange_name}] (
+                    Time, Date, Name, Coin_Name, Code, Volume, Bid_Total, Ask_Total, Depth, Hour, Day, Month_Number,
+                    Month_Name, Year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''',
+                    (row.Time, 
+                        row.Date,
+                        row.Name,
+                        row.Coin_Name, 
+                        row.Code,
+                        row.Volume,
+                        row.Bid_Total,
+                        row.Ask_Total, 
+                        row.Depth,
+                        row.Hour,
+                        row.Day,
+                        row.Month_Number,
+                        row.Month_Name,
+                        row.Year)
+                    
+                    )
+    curser.commit()

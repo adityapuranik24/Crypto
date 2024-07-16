@@ -184,25 +184,25 @@ async def processor(stream):
       bidTotal = []
       askTotal = []
       depth = []
-      value = []
+      values = []
 
-      length = len(message)
+      # length = len(message)
       msg_length = len(message)
       crypto_name = message[msg_length-1]
 
-      for i in range (0,length):
-          value = message[i]
+      for i in range (0,msg_length):
+          values = message[i]
           rem_list = ['png64', 'png128', 'webp64','webp128', 'centralized', 'usCompliant', 'markets', 'visitors', 'volumePerVisitor']
           for key in rem_list:
-              if key in value:
-                  del value[key]
+              if key in values:
+                  del values[key]
 
-          name.append(value['name'])
-          code.append(value['code'])
-          volume.append(value['volume'])
-          bidTotal.append(value['bidTotal'])
-          askTotal.append(value['askTotal'])
-          depth.append(value['depth']) 
+          name.append(values['name'])
+          code.append(values['code'])
+          volume.append(values['volume'])
+          bidTotal.append(values['bidTotal'])
+          askTotal.append(values['askTotal'])
+          depth.append(values['depth']) 
 
 
             # Getting current Date & Time
@@ -264,13 +264,13 @@ async def processor(stream):
 
           ue.update_excel(combined_data, name[exchange_name_len -1])
 
-    #     # Loading data on DataBase
-    #   for row in combined_data.itertuples():
-    # #   Sending data to MySQL Server
-    #     lm.load_mysql(row, crypto_name)
-    #       # Sending data to MsSQL Server
-    #     ldb.load_mssql(row, name[crypto_name_len -1])
-    #   print(combined_data)
+            # Loading data on DataBase
+          for row in combined_data.itertuples():
+        #   Sending data to MySQL Server
+            lm.load_exchanges_mysql(row, exchange_name)
+              # Sending data to MsSQL Server
+            ldb.load_exchanges_mssql(row, name[exchange_name_len -1])
+          print(combined_data)
 
 if __name__ == '__main__':
    app.main()

@@ -45,3 +45,32 @@ def load_mysql(row, name):
                         row.Year)
                     )
     db.commit()
+
+
+
+def load_exchanges_mysql(row, exchange_name):
+    # Estlabishing DataBase connection
+    cursor, db = db_conn.db_connect()
+    cursor.execute("USE CRYPTO")
+    cursor.execute(f'''
+                    INSERT INTO `{exchange_name}` (
+                    Time, Date, Name, Coin_Name, Code, Volume, Bid_Total, Ask_Total, Depth, Hour, Day, Month_Number,
+                    Month_Name, Year) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    ''',
+                    (row.Time, 
+                        row.Date,
+                        row.Name,
+                        row.Coin_Name, 
+                        row.Code,
+                        row.Volume,
+                        row.Bid_Total,
+                        row.Ask_Total, 
+                        row.Depth,
+                        row.Hour,
+                        row.Day,
+                        row.Month_Number,
+                        row.Month_Name,
+                        row.Year)
+                    
+                    )
+    db.commit()

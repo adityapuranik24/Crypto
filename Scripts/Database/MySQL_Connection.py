@@ -11,6 +11,31 @@ def db_connect():
 
 # a, b = db_connect()
 # a.execute('''USE CRYPTO''')
+
+# print(a.execute('''
+# CREATE TABLE BTSE (
+#     Time VARCHAR(30),
+#     Date DATE,
+#     Name VARCHAR(30),
+#     Coin_Name VARCHAR(30),
+#     Code VARCHAR(10),
+#     Volume FLOAT,
+#     Bid_Total FLOAT,
+#     Ask_Total FLOAT,
+#     Depth FLOAT,
+#     Hour INT,
+#     Day INT,
+#     Month_Number INT,
+#     Month_Name VARCHAR(30),
+#     Year INT
+# );
+# '''))
+
+
+
+
+
+
 # # print(a.execute('''SELECT * FROM BITCOIN;'''))
 # print(a.execute(''' CREATE TABLE XRP (
 #     Time VARCHAR(30),

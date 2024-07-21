@@ -184,26 +184,28 @@ async def processor(stream):
       bidTotal = []
       askTotal = []
       depth = []
-      values = []
+      value = []
 
       # length = len(message)
+      # msg_length = len(message)
+      crypto_name = message[-1]
+      message = message[:-1]
       msg_length = len(message)
-      crypto_name = message[msg_length-1]
+      # message = message[:-1]
 
       for i in range (0,msg_length):
-          values = message[i]
+          value = message[i]
           rem_list = ['png64', 'png128', 'webp64','webp128', 'centralized', 'usCompliant', 'markets', 'visitors', 'volumePerVisitor']
           for key in rem_list:
-              if key in values:
-                  del values[key]
+              if key in value:
+                  del value[key]
 
-          name.append(values['name'])
-          code.append(values['code'])
-          volume.append(values['volume'])
-          bidTotal.append(values['bidTotal'])
-          askTotal.append(values['askTotal'])
-          depth.append(values['depth']) 
-
+          name.append(value['name'])
+          code.append(value['code'])
+          volume.append(value['volume'])
+          bidTotal.append(value['bidTotal'])
+          askTotal.append(value['askTotal'])
+          depth.append(value['depth']) 
 
             # Getting current Date & Time
           timestamp, current_time, current_day, current_month_name, current_month, current_year, current_date_updated, current_hour = dt.current_date_time()           

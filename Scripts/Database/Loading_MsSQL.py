@@ -2,11 +2,11 @@ import sys
 sys.path.extend([
     'D:/Projects/Crypto/Database'])
 import MS_SQL_Connection as db_conn
+import MS_SQL_CreateTable as ct
 
 
 def load_mssql(row, name):
     curser = db_conn.db_con()
-
     # Inserting Data
     curser.execute(f'''
                     INSERT INTO [{name}] (
@@ -49,10 +49,11 @@ def load_mssql(row, name):
 
 
 def load_exchanges_mssql(row, exchange_name):
-    curser = db_conn.db_con()
+    cursor = db_conn.db_con()
 
+    # ct.create_table(cursor, exchange_name)
     # Inserting Data
-    curser.execute(f'''
+    cursor.execute(f'''
                     INSERT INTO [{exchange_name}] (
                     Time, Date, Name, Coin_Name, Code, Volume, Bid_Total, Ask_Total, Depth, Hour, Day, Month_Number,
                     Month_Name, Year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -73,4 +74,4 @@ def load_exchanges_mssql(row, exchange_name):
                         row.Year)
                     
                     )
-    curser.commit()
+    cursor.commit()

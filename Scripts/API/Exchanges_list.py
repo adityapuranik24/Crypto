@@ -24,17 +24,17 @@ def exchanges(coin):
     res_body.append(coin)
     return res_body
 
-# coins_list = ['BTC', 'ETH', 'BNB', 'ADA', 'DOGE', 'SOL', 'USDT', 'TONCOIN', 'USDC', 'TRON', 'XRP']
+# coins_list = ['BTC', 'ETH', 'BNB', 'ADA', 'DOGE', 'SOL', 'USDT', 'TONCOIN', 'USDC', 'XRP']
 # for coin in coins_list:
-# a = exchanges('BTC')
-# value = []
-# length = len(a)
-# for i in range (0,length):
-#     value = a[i]
-#     rem_list = ['png64', 'png128', 'webp64','webp128']
-#     for key in rem_list:
-#         if key in value:
-#             del value[key]
-#     print("#####################################################")
-#     print(value)
-# print("*************************************************************")
+#     a = exchanges('BTC')
+#     value = []
+#     length = len(a)
+#     for i in range (0,length):
+#         value = a[i]
+#         rem_list = ['png64', 'png128', 'webp64','webp128']
+#         for key in rem_list:
+#             if key in value:
+#                 del value[key]
+#         print("#####################################################")
+#         print(value)
+#     print("*************************************************************")

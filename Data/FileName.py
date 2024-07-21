@@ -1,1 +1,1 @@
-file_name = 'CARDANO_1721097650.989372.csv'
+exchange_name = 'HUOBI GLOBAL_1721541491.898626.csv'

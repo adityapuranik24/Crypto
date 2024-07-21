@@ -2,6 +2,7 @@ import sys
 sys.path.extend([
     'D:/Projects/Crypto/Database'])
 import MySQL_Connection as db_conn
+import MySQL_CreateTable as ct
 
 
 
@@ -52,6 +53,7 @@ def load_exchanges_mysql(row, exchange_name):
     # Estlabishing DataBase connection
     cursor, db = db_conn.db_connect()
     cursor.execute("USE CRYPTO")
+    # ct.create_table(cursor, exchange_name)
     cursor.execute(f'''
                     INSERT INTO `{exchange_name}` (
                     Time, Date, Name, Coin_Name, Code, Volume, Bid_Total, Ask_Total, Depth, Hour, Day, Month_Number,

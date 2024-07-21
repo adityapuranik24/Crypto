@@ -1,5 +1,4 @@
 import pymysql
-import pandas as pd
 
 
 def db_connect():
@@ -13,7 +12,7 @@ def db_connect():
 # a.execute('''USE CRYPTO''')
 
 # print(a.execute('''
-# CREATE TABLE BTSE (
+# CREATE TABLE ZEDXION (
 #     Time VARCHAR(30),
 #     Date DATE,
 #     Name VARCHAR(30),

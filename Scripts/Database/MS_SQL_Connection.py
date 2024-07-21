@@ -15,7 +15,7 @@ def db_con():
 # a = db_con()
 
 # print(a.execute('''
-# CREATE TABLE BTSE (
+# CREATE TABLE ZEDXION (
 #     Time VARCHAR(30),
 #     Date DATE,
 #     Name VARCHAR(30),

@@ -2,7 +2,7 @@ wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
 tar -xvf kafka_2.12-3.3.1.tgz
 
 ssh -i "Crypto-Analysis-Key.pem" ec2-user@ec2-18-217-211-255.us-east-2.compute.amazonaws.com
-ssh -i "Crypto-Analysis-Key.pem" ec2-user@ec2-3-145-4-161.us-east-2.compute.amazonaws.com
+ssh -i "Crypto-Analysis-Key.pem" ec2-user@ec2-18-217-27-99.us-east-2.compute.amazonaws.com
 -----------------------
 java -version
 sudo yum install java-1.8.0-openjdk
@@ -34,11 +34,11 @@ Create the topic:
 -----------------------------
 Duplicate the session & enter in a new console --
 cd kafka_2.12-3.3.1
-bin/kafka-topics.sh --create --topic demo_testing2 --bootstrap-server 10.128.0.8:9092 --replication-factor 1 --partitions 1
+bin/kafka-topics.sh --create --topic exchanges --bootstrap-server 18.217.27.99:9092 --replication-factor 1 --partitions 1
 
 Start Producer:
 --------------------------
-bin/kafka-console-producer.sh --topic exchanges --bootstrap-server 3.145.4.161:9092
+bin/kafka-console-producer.sh --topic exchanges --bootstrap-server 18.217.27.99:9092
 
 Start Consumer:
 -------------------------
@@ -47,3 +47,9 @@ cd kafka_2.12-3.3.1
 bin/kafka-console-consumer.sh --topic demo_testing2 --bootstrap-server {Put the Public IP of your EC2 Instance:9092}
 
 faust -A Sampl_Fac worker -l info
+
+bin/kafka-server-start.sh \
+  ~/kafka_2.12-3.6.1/config/server.properties \
+  --override broker.id=101 \
+  --override listeners=18.217.27.99:9093 \
+  --override port=9093 

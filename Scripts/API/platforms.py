@@ -24,11 +24,11 @@ def coins_list():
 
 
 # a = coins_list()
-# print(a)
+# # print(a)
 # value = []
-# length = len(res_body)
+# length = len(a)
 # for i in range (0,length):
-#   value = res_body[i]
+#   value = a[i]
 #   rem_list = ['symbol', 'color', 'png32','png64','webp32', 'webp64', 'links', ]
 #   for key in rem_list:
 #     if key in value:

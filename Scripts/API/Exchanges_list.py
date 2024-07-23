@@ -11,7 +11,7 @@ def exchanges(coin):
     "sort": "volume",
     "order": "descending",
     "offset": 0,
-    "limit": 5,
+    "limit": 3,
     "meta": True
     })
     headers = {

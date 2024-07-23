@@ -15,7 +15,7 @@ def db_con():
 # a = db_con()
 
 # print(a.execute('''
-# CREATE TABLE ZEDXION (
+# CREATE TABLE [GATE.IO] (
 #     Time VARCHAR(30),
 #     Date DATE,
 #     Name VARCHAR(30),

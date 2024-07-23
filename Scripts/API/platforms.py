@@ -10,7 +10,7 @@ def coins_list():
     "sort": "rank",
     "order": "ascending",
     "offset": 0,
-    "limit": 10,
+    "limit": 3,
     "meta": True
   })
   headers = {
@@ -24,7 +24,8 @@ def coins_list():
 
 
 # a = coins_list()
-# # print(a)
+# print(a)
+# print(type(a))
 # value = []
 # length = len(a)
 # for i in range (0,length):
